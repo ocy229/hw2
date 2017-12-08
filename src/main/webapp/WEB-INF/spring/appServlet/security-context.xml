@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security-4.2.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service
+				data-source-ref="dataSource"
+				authorities-by-username-query="select username, authority from authorities where username=?"
+				users-by-username-query="select username, password, enabled from users where username=?" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/"
+			access="permitAll" />
+		<security:intercept-url pattern="/login"
+			access="permitAll" />
+		<security:intercept-url pattern="/logout"
+			access="permitAll" />
+		<security:intercept-url pattern="/takes"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/sem_credits"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/div_credits"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/course_reg"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/courses"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/a"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/b"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/c"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/d"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/e"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/resources/**"
+			access="permitAll" />
+		<security:form-login login-page="/login" />
+		<security:logout />
+	</security:http>
+
+</beans>
